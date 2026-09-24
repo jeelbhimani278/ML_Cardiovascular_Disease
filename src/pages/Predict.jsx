@@ -24,7 +24,7 @@ import MemoryIcon from '@mui/icons-material/Memory';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import ShieldOutlinedIcon from '@mui/icons-material/ShieldOutlined';
 
-const API_BASE = 'http://localhost:8000';
+const API_BASE = import.meta.env.PROD ? '' : 'http://localhost:8000';
 const FALLBACK_MODELS = [
   { key: 'decision_tree', name: 'Decision Tree' },
 ];
@@ -92,7 +92,7 @@ function Predict() {
     async function loadModels() {
       setModelsLoading(true);
       try {
-        const response = await fetch(`${API_BASE}/models`);
+        const response = await fetch(`${API_BASE}/api/models`);
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -221,7 +221,7 @@ function Predict() {
         model: selectedModel,
       };
 
-      const response = await fetch(`${API_BASE}/predict`, {
+      const response = await fetch(`${API_BASE}/api/predict`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

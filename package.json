@@ -4,7 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev:frontend": "vite",
+    "dev:backend": "uvicorn api.index:app --reload --port 8000",
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
     "build": "vite build",
     "lint": "oxlint",
     "preview": "vite preview"
@@ -27,6 +29,7 @@
     "@types/react-dom": "^19.2.7",
     "@vitejs/plugin-react": "^6.1.1",
     "autoprefixer": "^10.6.1",
+    "concurrently": "^10.0.5",
     "oxlint": "^1.81.0",
     "tailwindcss": "^4.3.3",
     "vite": "^8.3.0"

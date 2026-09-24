@@ -17,7 +17,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-MODEL_DIR = os.path.join(os.path.dirname(__file__), '..', 'model')
+MODEL_DIR = os.path.join(os.path.dirname(__file__), 'model')
 BUNDLE_PATH = os.path.join(MODEL_DIR, 'cardio_models.pkl')
 LEGACY_PATH = os.path.join(MODEL_DIR, 'cardio_model.pkl')
 
@@ -92,7 +92,7 @@ def _resolve_model(requested_key: Optional[str]):
     return key, entry['estimator'], entry
 
 
-@app.get("/models")
+@app.get("/api/models")
 def list_models():
     catalog = []
     for key, entry in models.items():
@@ -109,7 +109,7 @@ def list_models():
     }
 
 
-@app.post("/predict")
+@app.post("/api/predict")
 def predict(request: PredictionRequest):
     if not models:
         return {"error": "Model not loaded"}
